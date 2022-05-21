@@ -37,6 +37,16 @@ $router->get('/', function () {
     require_once __DIR__ . '/common/views/homepage.php';
 });
 
+// Software Feedback
+$router->get('/software-feedback', function () {
+    require_once __DIR__ . '/common/views/software-feedback.php';
+});
+
+// Website Feedback
+$router->get('/website-feedback', function () {
+    require_once __DIR__ . '/common/views/website-feedback.php';
+});
+
 // Thunderbirds are go!
 $router->run();
 

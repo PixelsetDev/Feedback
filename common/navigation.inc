@@ -1,4 +1,4 @@
-<nav class="bg-neutral-900 z-40 absolute top-0 left-0 right-0">
+<nav class="bg-neutral-900 z-40 w-full">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="relative flex items-center justify-between py-2">
             <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
