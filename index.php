@@ -25,12 +25,10 @@ $router->set404(function () {
     exit;
 });
 
-// Before Router Middleware
+// Before OldRouter Middleware
 $router->before('GET', '/.*', function () {
-    header('X-Powered-By: Boa/Router');
+    header('X-Powered-By: Boa/OldRouter');
 });
-
-$result = $SQL->Select('name','projects');
 
 // Homepage
 $router->get('/', function () {
@@ -41,10 +39,30 @@ $router->get('/', function () {
 $router->get('/software-feedback', function () {
     require_once __DIR__ . '/common/views/software-feedback.php';
 });
+$router->post('/software-feedback', function () {
+    require_once __DIR__ . '/common/controllers/feedback-submission.php';
+    require_once __DIR__ . '/common/views/software-feedback.php';
+});
 
 // Website Feedback
 $router->get('/website-feedback', function () {
     require_once __DIR__ . '/common/views/website-feedback.php';
+});
+
+// Find Server Information
+$router->get('/find-server-information', function () {
+    require_once __DIR__ . '/common/views/find-server-information.php';
+});
+
+$router->mount('/view', function () use ($router) {
+    $router->get('/', function () {
+        require_once __DIR__.'/common/views/homepage.php';
+    });
+
+    $router->get('/feedback', function ($id) {
+        $articleID = htmlspecialchars($id);
+        require_once __DIR__.'/common/views/homepage.php';
+    });
 });
 
 // Thunderbirds are go!

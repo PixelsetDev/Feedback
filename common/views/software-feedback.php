@@ -4,8 +4,8 @@
         <?php require __DIR__ . '/../vendors.inc'; ?>
 
         <script>
-            function ChangeType() {
-                if (document.getElementById("type").value == 1) {
+            function ChangeType(type = 0) {
+                if (document.getElementById("Type").value == 1 || type == 1) {
                     document.getElementById("Feedback").classList.remove("hidden");
                     document.getElementById("Feedback").classList.add("block");
 
@@ -15,7 +15,7 @@
                     document.getElementById("BugReport").classList.add("hidden");
 
                     console.log("Switched to Feedback");
-                } else if (document.getElementById("type").value == 2) {
+                } else if (document.getElementById("Type").value == 2 || type == 2) {
                     document.getElementById("Suggestion").classList.remove("hidden");
                     document.getElementById("Suggestion").classList.add("block");
 
@@ -25,7 +25,7 @@
                     document.getElementById("BugReport").classList.add("hidden");
 
                     console.log("Switched to Suggestion");
-                } else if (document.getElementById("type").value == 3) {
+                } else if (document.getElementById("Type").value == 3 || type == 3) {
                     document.getElementById("BugReport").classList.remove("hidden");
                     document.getElementById("BugReport").classList.add("block");
 
@@ -35,8 +35,6 @@
                     document.getElementById("Feedback").classList.add("hidden");
 
                     console.log("Switched to Bug Report");
-                } else {
-                    console.log("Error: Unable to determine type (returned "+document.getElementById("type").value+").");
                 }
             }
         </script>
@@ -46,21 +44,30 @@
         <?php require __DIR__ . '/../navigation.inc'; ?>
 
         <header class="py-16">
+            <?php if (isset($submitted) && $submitted) { ?>
+            <h1 class="text-6xl w-full text-center font-bold">We've got it!</h1>
+            <p class="text-3xl w-full text-center">Thanks for your feedback.</p>
+            <?php } elseif (isset($submitted) && !$submitted) { ?>
+            <h1 class="text-6xl w-full text-center font-bold">Whoops! Something went wrong...</h1>
+                <p class="text-3xl w-full text-center">We haven't got your Feedback, sorry. If you require assistance please visit <a href="https://support.lmwn.co.uk/contact-us/" target="_blank" class="underline">our support website</a>, apologies for the inconvenience.</p>
+            <?php } else { ?>
             <h1 class="text-6xl w-full text-center font-bold">Software Feedback</h1>
             <p class="text-3xl w-full text-center">Let us know how we're doing.</p>
+            <?php } ?>
         </header>
 
+        <?php if (!isset($submitted)) { ?>
         <main class="pb-16 lg:px-32 md:px-20 sm:px-12 px-4 text-center">
-            <label for="type">Feedback Type</label><br>
-            <select name="type" id="type" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" onchange="ChangeType();" required>
+            <label for="Type">Feedback Type</label><br>
+            <select name="Type" id="Type" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" onchange="ChangeType();" required>
                 <option disabled selected>Please select one</option>
                 <option value="1">Feedback</option>
                 <option value="2">Suggestion</option>
                 <option value="3">Bug or Error Report</option>
             </select>
             <form action="" method="POST" class="text-center">
-                <label for="product" class="<?php if (isset($_GET['product'])) { ?>hidden<?php } ?>">Product</label><br class="<?php if (isset($_GET['product'])) { ?>hidden<?php } ?>">
-                <select name="product" id="product" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8<?php if (isset($_GET['product'])) { ?> hidden<?php } ?>" required>
+                <label for="Product" class="<?php if (isset($_GET['product'])) { ?>hidden<?php } ?>">Product</label><br class="<?php if (isset($_GET['product'])) { ?>hidden<?php } ?>">
+                <select name="Product" id="Product" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8<?php if (isset($_GET['product'])) { ?> hidden<?php } ?>" required>
                     <option disabled selected>Please select one</option>
                     <option value="BOA"<?php if (isset($_GET['product']) && $_GET['product'] == 'Boa') { echo 'selected'; } ?>>Boa</option>
                     <option value="BONFIRE"<?php if (isset($_GET['product']) && $_GET['product'] == 'Bonfire') { echo 'selected'; } ?> onclick="">Bonfire</option>
@@ -68,10 +75,10 @@
                     <option value="SATURN"<?php if (isset($_GET['product']) && $_GET['product'] == 'Saturn') { echo 'selected'; } ?>>Saturn</option>
                 </select>
                 <div class="grid grid-cols-2 gap-x-8 w-1/2 mx-auto mb-8">
-                    <label for="name">Name</label>
-                    <label for="email">Email</label>
-                    <input name="name" id="name" class="px-2 py-1 border border-neutral-500 rounded-md" placeholder="Name" type="text" required>
-                    <input name="email" id="email" class="px-2 py-1 border border-neutral-500 rounded-md" placeholder="Email" type="email" required>
+                    <label for="Name">Name</label>
+                    <label for="Email">Email</label>
+                    <input name="Name" id="Name" class="px-2 py-1 border border-neutral-500 rounded-md" placeholder="Name" type="text" required>
+                    <input name="Email" id="Email" class="px-2 py-1 border border-neutral-500 rounded-md" placeholder="Email" type="email" required>
                 </div>
                 <div id="Feedback" class="hidden">
                     <label for="FeedbackMessage">Message</label><br>
@@ -82,11 +89,17 @@
                     <textarea name="SuggestionMessage" id="SuggestionMessage" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" placeholder="Please enter your suggestion here."></textarea>
                 </div>
                 <div id="BugReport" class="hidden">
-                    <label for="BugDescription">Description</label><br>
+                    <label for="BugTitle">Title</label><br>
+                    <input name="BugTitle" id="BugTitle" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" type="text">
+
+                    <br><label for="BugDescription">Description</label><br>
                     <textarea name="BugDescription" id="BugDescription" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" placeholder="Please enter a brief description here."></textarea>
 
+                    <br><label for="BugStepsToReproduce">Steps to Reproduce</label><br>
+                    <textarea name="BugStepsToReproduce" id="BugStepsToReproduce" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" placeholder="Please tell us how we can reproduce the issue on our end. What steps did you take to cause the issue?"></textarea>
+
                     <p class="text-xl font-bold">Server Information</p>
-                    <p class="text-xs mb-2">This section is asking for information about the server that the software runs on. <a href="/find-server-information" target="_blank" class="underline">Need Help? Click here.</a> (opens in new tab).</p>
+                    <p class="text-xs mb-2">This section is asking for information about the server that the software runs on. <a href="../find-server-information" target="_blank" class="underline">Need Help? Click here.</a> (opens in new tab).</p>
 
                     <div class="grid grid-cols-2 gap-x-8 w-1/2 mx-auto mb-8">
                         <label for="BugServerOS">Server Operating System</label>
@@ -126,5 +139,6 @@
                 <input class="px-2 py-1 border border-neutral-500 shadow-lg rounded-md w-1/2 mb-8 hover:shadow-xl transition duration-200" value="Submit" type="submit">
             </form>
         </main>
+        <?php } ?>
     </body>
 </html>

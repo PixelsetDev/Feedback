@@ -11,3 +11,8 @@ ErrorDocument 408 /Bonfire/error.php?code=408
 ErrorDocument 409 /Bonfire/error.php?code=409
 ErrorDocument 410 /Bonfire/error.php?code=410
 # END - BONFIRE HTTP ERROR PAGES
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
