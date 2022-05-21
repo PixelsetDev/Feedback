@@ -30,7 +30,7 @@ $router->before('GET', '/.*', function () {
     header('X-Powered-By: Boa/Router');
 });
 
-$result = $SQL->Query('SELECT `slug`, `university` FROM `accommodation` WHERE 1;');
+$result = $SQL->Select('name','projects');
 
 // Homepage
 $router->get('/', function () {
