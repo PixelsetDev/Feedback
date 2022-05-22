@@ -44,10 +44,10 @@
         <?php require __DIR__ . '/../navigation.inc'; ?>
 
         <header class="py-16">
-            <?php if (isset($submitted) && $submitted) { ?>
+            <?php if (isset($_GET['accepted']) && $_GET['accepted']) { ?>
             <h1 class="text-6xl w-full text-center font-bold">We've got it!</h1>
             <p class="text-3xl w-full text-center">Thanks for your feedback.</p>
-            <?php } elseif (isset($submitted) && !$submitted) { ?>
+            <?php } elseif (isset($_GET['accepted'])) { ?>
             <h1 class="text-6xl w-full text-center font-bold">Whoops! Something went wrong...</h1>
                 <p class="text-3xl w-full text-center">We haven't got your Feedback, sorry. If you require assistance please visit <a href="https://support.lmwn.co.uk/contact-us/" target="_blank" class="underline">our support website</a>, apologies for the inconvenience.</p>
             <?php } else { ?>
@@ -56,7 +56,7 @@
             <?php } ?>
         </header>
 
-        <?php if (!isset($submitted)) { ?>
+        <?php if (!isset($_GET['accepted'])) { ?>
         <main class="pb-16 lg:px-32 md:px-20 sm:px-12 px-4 text-center">
             <label for="Type">Feedback Type</label><br>
             <select name="Type" id="Type" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" onchange="ChangeType();" required>
@@ -77,26 +77,26 @@
                 <div class="grid grid-cols-2 gap-x-8 w-1/2 mx-auto mb-8">
                     <label for="Name">Name</label>
                     <label for="Email">Email</label>
-                    <input name="Name" id="Name" class="px-2 py-1 border border-neutral-500 rounded-md" placeholder="Name" type="text" required>
-                    <input name="Email" id="Email" class="px-2 py-1 border border-neutral-500 rounded-md" placeholder="Email" type="email" required>
+                    <input name="Name" id="Name" class="px-2 py-1 border border-neutral-500 rounded-md" placeholder="Name" type="text" maxlength="63" required>
+                    <input name="Email" id="Email" class="px-2 py-1 border border-neutral-500 rounded-md" placeholder="Email" type="email" maxlength="63" required>
                 </div>
                 <div id="Feedback" class="hidden">
                     <label for="FeedbackMessage">Message</label><br>
-                    <textarea name="FeedbackMessage" id="FeedbackMessage" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" placeholder="Please enter your feedback here."></textarea>
+                    <textarea name="FeedbackMessage" id="FeedbackMessage" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" maxlength="511" placeholder="Please enter your feedback here."></textarea>
                 </div>
                 <div id="Suggestion" class="hidden">
                     <label for="SuggestionMessage">Message</label><br>
-                    <textarea name="SuggestionMessage" id="SuggestionMessage" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" placeholder="Please enter your suggestion here."></textarea>
+                    <textarea name="SuggestionMessage" id="SuggestionMessage" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" maxlength="511" placeholder="Please enter your suggestion here."></textarea>
                 </div>
                 <div id="BugReport" class="hidden">
                     <label for="BugTitle">Title</label><br>
                     <input name="BugTitle" id="BugTitle" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" type="text">
 
                     <br><label for="BugDescription">Description</label><br>
-                    <textarea name="BugDescription" id="BugDescription" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" placeholder="Please enter a brief description here."></textarea>
+                    <textarea name="BugDescription" id="BugDescription" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" maxlength="511" placeholder="Please enter a brief description here."></textarea>
 
                     <br><label for="BugStepsToReproduce">Steps to Reproduce</label><br>
-                    <textarea name="BugStepsToReproduce" id="BugStepsToReproduce" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" placeholder="Please tell us how we can reproduce the issue on our end. What steps did you take to cause the issue?"></textarea>
+                    <textarea name="BugStepsToReproduce" id="BugStepsToReproduce" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" maxlength="511" placeholder="Please tell us how we can reproduce the issue on our end. What steps did you take to cause the issue?"></textarea>
 
                     <p class="text-xl font-bold">Server Information</p>
                     <p class="text-xs mb-2">This section is asking for information about the server that the software runs on. <a href="../find-server-information" target="_blank" class="underline">Need Help? Click here.</a> (opens in new tab).</p>

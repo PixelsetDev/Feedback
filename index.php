@@ -8,6 +8,9 @@ session_start();
  *
  * This file is a modified version of the demo router provided by https://github.com/bramus/router.
  */
+
+const BASE_URI = '/feedback';
+
 $filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
 if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
@@ -41,7 +44,6 @@ $router->get('/software-feedback', function () {
 });
 $router->post('/software-feedback', function () {
     require_once __DIR__ . '/common/controllers/feedback-submission.php';
-    require_once __DIR__ . '/common/views/software-feedback.php';
 });
 
 // Website Feedback
