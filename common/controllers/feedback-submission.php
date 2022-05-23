@@ -37,8 +37,7 @@ if (isset($_POST['Product']) && $_POST['Product'] != NULL) {
                 $SoftwareVersion = $SQL->Escape($_POST['BugSoftwareVersion']);
                 $Browser = $SQL->Escape($_POST['BugUserBrowser']);
                 $BrowserVersion = $SQL->Escape($_POST['BugUserBrowserVersion']);
-
-                if ($SQL->Insert("reports", "`id`, `project`, `datetime`, `name`, `email`, `type`, `status`, `priority`, `severity`, `title`, `description`, `steps`, `server_os`, `server_os_version`, `server_php_version`, `software_version`, `browser`, `browser_version`, `fixed_software_version`", "NULL, '$Project', current_timestamp(), '$Name', '$Email', '$Type', 'REPORTED', 0, 0, '$Title', '$Description', '$Steps', '$ServerOS', '$ServerOSVersion', '$PHPVersion', '$SoftwareVersion', '$Browser', '$BrowserVersion', NULL")) {
+                if ($SQL->Insert("reports", "`id`, `project`, `datetime`, `name`, `email`, `type`, `status`, `priority`, `severity`, `title`, `description`, `steps`, `server_os`, `server_os_version`, `server_php_version`, `software_version`, `browser`, `browser_version`, `fixed_software_version`, `last_updated_datetime`", "NULL, '$Project', current_timestamp(), '$Name', '$Email', '$Type', 'REPORTED', '0', '0', '$Title', '$Description', '$Steps', '$ServerOS', '$ServerOSVersion', '$PHPVersion', '$SoftwareVersion', '$Browser', '$BrowserVersion', NULL, current_timestamp()")) {
                     header('Location: ' . BASE_URI . '/software-feedback/?accepted=true');
                 } else {
                     header('Location: ' . BASE_URI . '/software-feedback/?error=true&message=There was a problem connecting to the database.');

@@ -38,26 +38,25 @@ $router->get('/', function () {
     require_once __DIR__ . '/common/views/homepage.php';
 });
 
-// Software Feedback
-$router->get('/software-feedback', function () {
-    require_once __DIR__ . '/common/views/software-feedback.php';
-});
-$router->post('/software-feedback', function () {
-    require_once __DIR__ . '/common/controllers/feedback-submission.php';
-});
-
-// Website Feedback
-$router->get('/website-feedback', function () {
-    require_once __DIR__ . '/common/views/website-feedback.php';
-});
+// Categories
+$Categories = $SQL->Select('slug', 'categories', '1', 'ALL:ASSOC');
+foreach ($Categories as $Category) {
+    $router->get('/'.$Category['slug'].'-feedback', function () {
+        global $Category;
+        require_once __DIR__ . '/common/views/'.$Category['slug'].'-feedback.php';
+    });
+    $router->post('/'.$Category['slug'].'-feedback', function () {
+        require_once __DIR__ . '/common/controllers/feedback-submission.php';
+    });
+}
 
 // Find Server Information
 $router->get('/find-server-information', function () {
     require_once __DIR__ . '/common/views/find-server-information.php';
 });
 
+// Projects
 $Projects = $SQL->Select('slug', 'projects', '1', 'ALL');
-
 foreach ($Projects as $project) {
     $project = $project[0];
 
