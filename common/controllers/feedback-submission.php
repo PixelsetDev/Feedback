@@ -19,9 +19,10 @@ if (isset($_POST['Product']) && $_POST['Product'] != NULL) {
                     header('Location: ' . BASE_URI . '/software-feedback/?error=true&message=There was a problem connecting to the database.');
                 }
             } elseif (isset($_POST['SuggestionMessage']) && $_POST['SuggestionMessage'] != NULL) {
+                $Title = $SQL->Escape($_POST['SuggestionTitle']);
                 $Message = $SQL->Escape($_POST['SuggestionMessage']);
 
-                if ($SQL->Insert("suggestions", "`id`, `product`, `datetime`, `name`, `email`, `message`", "NULL, '$Project', current_timestamp(), '$Name', '$Email', '$Message'")) {
+                if ($SQL->Insert("suggestions", "`id`, `product`, `datetime`, `name`, `email`, `title`, `message`", "NULL, '$Project', current_timestamp(), '$Name', '$Email', '$Title', '$Message'")) {
                     header('Location: ' . BASE_URI . '/software-feedback/?accepted=true');
                 } else {
                     header('Location: ' . BASE_URI . '/software-feedback/?error=true&message=There was a problem connecting to the database.');

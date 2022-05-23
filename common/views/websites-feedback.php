@@ -95,6 +95,8 @@
                     <div class="mb-8 border-l-2 border-blue-500 bg-blue-100 py-1 w-1/4 text-center mx-auto">
                         Please be aware that suggestions are public.
                     </div>
+                    <label for="SuggestionTitle">Title</label><br>
+                    <input name="SuggestionTitle" id="SuggestionTitle" type="text" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" maxlength="63" placeholder="Please enter a brief title here."><br>
                     <label for="SuggestionMessage">Message</label><br>
                     <textarea name="SuggestionMessage" id="SuggestionMessage" class="px-2 py-1 border border-neutral-500 rounded-md w-1/2 mb-8" maxlength="511" placeholder="Please enter your suggestion here."></textarea>
                     <input class="px-2 py-1 border border-neutral-500 shadow-lg rounded-md w-1/2 mb-8 hover:shadow-xl transition duration-200" value="Submit" type="submit">

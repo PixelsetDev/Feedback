@@ -45,20 +45,23 @@ $NumImplementedSuggestions = $SQL->Select('*', 'suggestions', '`product` = \''.s
                 <tr>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Name</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Suggestion</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2"></th>
                 </tr>
                 <?php if ($NumSuggestions > 0) { $i=1; foreach ($Suggestions as $Suggestion) { if ($i % 2 == 0) { ?>
                     <tr>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['name']; ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['message']; ?></td>
+                        <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><a href="suggestions/<?php echo $Suggestion['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } else { ?>
                     <tr>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['name']; ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['message']; ?></td>
+                        <td class="border border-neutral-300 py-1 px-2"><a href="suggestions/<?php echo $Suggestion['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } $i++; } } else { ?>
                     <tr>
-                        <td colspan="3" class="border py-1 px-2">No suggestions are awaiting a response.</td>
+                        <td colspan="4" class="border py-1 px-2">No suggestions are awaiting a response.</td>
                     </tr>
                 <?php } ?>
             </table>
@@ -73,22 +76,25 @@ $NumImplementedSuggestions = $SQL->Select('*', 'suggestions', '`product` = \''.s
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Name</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Suggestion</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Response</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2"></th>
                 </tr>
                 <?php if ($NumAcceptedSuggestions > 0) { $i=1; foreach ($AcceptedSuggestions as $Suggestion) { if ($i % 2 == 0) { ?>
                     <tr>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['name']; ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['message']; ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['status_reason']; ?></td>
+                        <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><a href="suggestions/<?php echo $Suggestion['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } else { ?>
                     <tr>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['name']; ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['message']; ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['status_reason']; ?></td>
+                        <td class="border border-neutral-300 py-1 px-2"><a href="suggestions/<?php echo $Suggestion['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } $i++; } } else { ?>
                     <tr>
-                        <td colspan="3" class="border py-1 px-2">No suggestions have been accepted yet.</td>
+                        <td colspan="4" class="border py-1 px-2">No suggestions have been accepted yet.</td>
                     </tr>
                 <?php } ?>
             </table>
@@ -103,22 +109,25 @@ $NumImplementedSuggestions = $SQL->Select('*', 'suggestions', '`product` = \''.s
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Name</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Suggestion</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Response</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2"></th>
                 </tr>
                 <?php if ($NumImplementedSuggestions > 0) { $i=1; foreach ($ImplementedSuggestions as $Suggestion) { if ($i % 2 == 0) { ?>
                     <tr>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['name']; ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['message']; ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['status_reason']; ?></td>
+                        <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><a href="suggestions/<?php echo $Suggestion['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } else { ?>
                     <tr>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['name']; ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['message']; ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['status_reason']; ?></td>
+                        <td class="border border-neutral-300 py-1 px-2"><a href="suggestions/<?php echo $Suggestion['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } $i++; } } else { ?>
                     <tr>
-                        <td colspan="3" class="border py-1 px-2">No suggestions have been implemented yet.</td>
+                        <td colspan="4" class="border py-1 px-2">No suggestions have been implemented yet.</td>
                     </tr>
                 <?php } ?>
             </table>
@@ -133,22 +142,25 @@ $NumImplementedSuggestions = $SQL->Select('*', 'suggestions', '`product` = \''.s
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Name</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Suggestion</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Response</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2"></th>
                 </tr>
                 <?php if ($NumRejectedSuggestions > 0) { $i=1; foreach ($RejectedSuggestions as $Suggestion) { if ($i % 2 == 0) { ?>
                     <tr>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['name']; ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['message']; ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Suggestion['status_reason']; ?></td>
+                        <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><a href="suggestions/<?php echo $Suggestion['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } else { ?>
                     <tr>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['name']; ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['message']; ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Suggestion['status_reason']; ?></td>
+                        <td class="border border-neutral-300 py-1 px-2"><a href="suggestions/<?php echo $Suggestion['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } $i++; } } else { ?>
                     <tr>
-                        <td colspan="3" class="border py-1 px-2">No suggestions have been rejected yet.</td>
+                        <td colspan="4" class="border py-1 px-2">No suggestions have been rejected yet.</td>
                     </tr>
                 <?php } ?>
             </table>

@@ -45,8 +45,11 @@ $router->get('/', function () {
 // Categories
 foreach ($Categories as $Category) {
     $router->get('/'.$Category['slug'].'-feedback', function () {
-        global $Category;
-        require_once __DIR__ . '/common/views/'.$Category['slug'].'-feedback.php';
+        if (str_contains($_SERVER['REQUEST_URI'], 'websites')) {
+            require_once __DIR__ . '/common/views/' . 'websites-feedback.php';
+        } else {
+            require_once __DIR__ . '/common/views/' . 'software-feedback.php';
+        }
     });
     $router->post('/'.$Category['slug'].'-feedback', function () {
         require_once __DIR__ . '/common/controllers/feedback-submission.php';
@@ -81,6 +84,14 @@ foreach ($Projects as $project) {
         foreach ($Reports as $Report) {
             $router->get('/reports/'.$Report['id'], function () {
                 require_once __DIR__ . '/common/views/report.php';
+            });
+        }
+
+        $Suggestions = $SQL->Select('id', 'suggestions', '1', 'ALL:ASSOC');
+
+        foreach ($Suggestions as $Suggestion) {
+            $router->get('/suggestions/'.$Suggestion['id'], function () {
+                require_once __DIR__ . '/common/views/suggestion.php';
             });
         }
     });
