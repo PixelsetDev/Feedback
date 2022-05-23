@@ -33,13 +33,16 @@ $router->before('GET', '/.*', function () {
     header('X-Powered-By: Boa/OldRouter');
 });
 
+// Load Data
+$Categories = $SQL->Select('slug', 'categories', '1', 'ALL:ASSOC');
+$Projects = $SQL->Select('slug', 'projects', '1', 'ALL');
+
 // Homepage
 $router->get('/', function () {
     require_once __DIR__ . '/common/views/homepage.php';
 });
 
 // Categories
-$Categories = $SQL->Select('slug', 'categories', '1', 'ALL:ASSOC');
 foreach ($Categories as $Category) {
     $router->get('/'.$Category['slug'].'-feedback', function () {
         global $Category;
@@ -56,25 +59,39 @@ $router->get('/find-server-information', function () {
 });
 
 // Projects
-$Projects = $SQL->Select('slug', 'projects', '1', 'ALL');
 foreach ($Projects as $project) {
     $project = $project[0];
 
     $router->mount('/'.$project, function () use ($router) {
-
         $router->get('/', function () {
             require_once __DIR__ . '/common/views/project.php';
+        });
+
+        $router->get('/suggestions', function () {
+            require_once __DIR__ . '/common/views/suggestions.php';
         });
 
         $router->get('/reports', function () {
             require_once __DIR__ . '/common/views/reports.php';
         });
 
-        $router->get('/suggestions', function () {
-            require_once __DIR__ . '/common/views/suggestions.php';
-        });
+        global $SQL;
+        $Reports = $SQL->Select('id', 'reports', '1', 'ALL:ASSOC');
+
+        foreach ($Reports as $Report) {
+            $router->get('/reports/'.$Report['id'], function () {
+                require_once __DIR__ . '/common/views/report.php';
+            });
+        }
     });
 }
+
+// Account
+$router->mount('/account', function () use ($router) {
+    $router->get('/login', function () {
+        require_once __DIR__ . '/common/controllers/login.php';
+    });
+});
 
 // Thunderbirds are go!
 $router->run();

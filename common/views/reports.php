@@ -47,6 +47,7 @@ function Icon_Type($value): string
 
         <header class="py-16">
             <h1 class="text-6xl w-full text-center font-bold"><?php echo ucfirst($project); ?> Reports</h1>
+            <p class="text-3xl w-full text-center">The <?php echo ucfirst($project); ?> issue tracker.</p>
         </header>
 
         <main class="pb-16 lg:px-32 md:px-20 sm:px-12 px-4 text-center">
@@ -60,7 +61,9 @@ function Icon_Type($value): string
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Status</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Priority</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Severity</th>
-                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Version</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Affected Version</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Last Updated</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2"></th>
                 </tr>
                 <?php if ($NumReports > 0) { $i=1; foreach ($Reports as $Report) { if ($i % 2 == 0) { ?>
                     <tr>
@@ -70,6 +73,8 @@ function Icon_Type($value): string
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo Icon_Priority_Severity($Report['priority']); ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo Icon_Priority_Severity($Report['severity']); ?></td>
                         <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Report['software_version']; ?></td>
+                        <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Report['last_updated_datetime']; ?></td>
+                        <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><a href="reports/<?php echo $Report['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
                 <?php } else { ?>
                     <tr>
@@ -79,8 +84,14 @@ function Icon_Type($value): string
                         <td class="border border-neutral-300 py-1 px-2"><?php echo Icon_Priority_Severity($Report['priority']); ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo Icon_Priority_Severity($Report['severity']); ?></td>
                         <td class="border border-neutral-300 py-1 px-2"><?php echo $Report['software_version']; ?></td>
+                        <td class="border border-neutral-300 py-1 px-2 invisible lg:contents"><?php echo $Report['last_updated_datetime']; ?></td>
+                        <td class="border border-neutral-300 py-1 px-2"><a href="reports/<?php echo $Report['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                     </tr>
-                <?php } $i++; } } ?>
+                <?php } $i++; } } else { ?>
+                    <tr>
+                        <td colspan="7" class="border py-1 px-2">No open reports.</td>
+                    </tr>
+                <?php } ?>
             </table>
 
             <br><br>
@@ -95,7 +106,10 @@ function Icon_Type($value): string
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Status</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Priority</th>
                     <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Severity</th>
-                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Version</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Affected Version</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Resolved in Version</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2">Last Updated</th>
+                    <th class="border border-neutral-300 bg-neutral-200 py-1 px-2"></th>
                 </tr>
                 <?php if ($NumClosedReports > 0) { $i=1; foreach ($ClosedReports as $Report) { if ($i % 2 == 0) { ?>
                 <tr>
@@ -105,6 +119,9 @@ function Icon_Type($value): string
                     <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo Icon_Priority_Severity($Report['priority']); ?></td>
                     <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo Icon_Priority_Severity($Report['severity']); ?></td>
                     <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Report['software_version']; ?></td>
+                    <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Report['fixed_software_version']; ?></td>
+                    <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><?php echo $Report['last_updated_datetime']; ?></td>
+                    <td class="border border-neutral-300 bg-neutral-100 py-1 px-2"><a href="reports/<?php echo $Report['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                 </tr>
                 <?php } else { ?>
                 <tr>
@@ -114,8 +131,15 @@ function Icon_Type($value): string
                     <td class="border border-neutral-300 py-1 px-2"><?php echo Icon_Priority_Severity($Report['priority']); ?></td>
                     <td class="border border-neutral-300 py-1 px-2"><?php echo Icon_Priority_Severity($Report['severity']); ?></td>
                     <td class="border border-neutral-300 py-1 px-2"><?php echo $Report['software_version']; ?></td>
+                    <td class="border border-neutral-300 py-1 px-2"><?php echo $Report['fixed_software_version']; ?></td>
+                    <td class="border border-neutral-300 py-1 px-2"><?php echo $Report['last_updated_datetime']; ?></td>
+                    <td class="border border-neutral-300 py-1 px-2"><a href="reports/<?php echo $Report['id']; ?>"><i class="fa-solid fa-magnifying-glass-plus"></i></a></td>
                 </tr>
-                <?php } $i++; } } ?>
+                <?php } $i++; } } else { ?>
+                    <tr>
+                        <td colspan="8" class="border py-1 px-2">No closed reports.</td>
+                    </tr>
+                <?php } ?>
             </table>
         </main>
     </body>

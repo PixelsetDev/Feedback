@@ -2,7 +2,15 @@
 global $project;
 global $SQL;
 
-$Project = $SQL->Select('name', 'projects', '1', 'OBJECT');
+$Projects = $SQL->Select('slug', 'projects', '1', 'ALL');
+
+foreach($Projects as $Project) {
+    if (str_contains($_SERVER['REQUEST_URI'], $Project[0])) {
+        $project = $Project[0];
+    }
+}
+
+$Project = $SQL->Select('name', 'projects', '`slug` = \''.$project.'\'', 'OBJECT');
 $Project->slug = $project;
 ?><!DOCTYPE html>
 <html lang="en">
