@@ -56,16 +56,26 @@ $router->get('/find-server-information', function () {
     require_once __DIR__ . '/common/views/find-server-information.php';
 });
 
-$router->mount('/view', function () use ($router) {
-    $router->get('/', function () {
-        require_once __DIR__.'/common/views/homepage.php';
-    });
+$Projects = $SQL->Select('slug', 'projects', '1', 'ALL');
 
-    $router->get('/feedback', function ($id) {
-        $articleID = htmlspecialchars($id);
-        require_once __DIR__.'/common/views/homepage.php';
+foreach ($Projects as $project) {
+    $project = $project[0];
+
+    $router->mount('/'.$project, function () use ($router) {
+
+        $router->get('/', function () {
+            require_once __DIR__ . '/common/views/project.php';
+        });
+
+        $router->get('/reports', function () {
+            require_once __DIR__ . '/common/views/reports.php';
+        });
+
+        $router->get('/suggestions', function () {
+            require_once __DIR__ . '/common/views/suggestions.php';
+        });
     });
-});
+}
 
 // Thunderbirds are go!
 $router->run();

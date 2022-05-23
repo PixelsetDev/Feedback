@@ -23,7 +23,7 @@
             <h2 class="text-3xl font-bold mt-16">Other Software</h2>
             <ul class="list-disc ml-4">
                 <li>Create a new PHP file called info.php on the server that hosts Saturn.</li>
-                <li>Type the following into the file: &gt;?php echo phpinfo();</li>
+                <li>Type the following into the file: <code>&lt;?php echo phpinfo(); ?&gt;</code></li>
                 <li>Navigate to the file in your web browser and open it.</li>
                 <li>The 'System' section contains information about your operating system.</li>
                 <li>The PHP Version will be in large text at the top of the screen.</li>
